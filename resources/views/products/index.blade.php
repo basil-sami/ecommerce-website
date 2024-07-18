@@ -38,12 +38,16 @@
                                     <td class="border px-4 py-2">{{ $product->quantity }}</td>
                                     <td class="border px-4 py-2">
                                         <a href="{{ route('products.show', $product->id) }}" class="btn btn-info">View</a>
-                                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">Edit</a>
-                                        <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
+                                        @can('update', $product)
+                                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-warning">Edit</a>
+                                        @endcan
+                                        @can('delete', $product)
+                                            <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
@@ -54,4 +58,3 @@
         </div>
     </div>
 </x-app-layout>
-    

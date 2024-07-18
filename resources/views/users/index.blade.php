@@ -28,12 +28,26 @@
                                 <td class="border px-4 py-2">{{ $user->email }}</td>
                                 <td class="border px-4 py-2">
                                     <a href="{{ route('users.show', $user->id) }}" class="btn btn-info">View</a>
-                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Edit</a>
-                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
+                                    @can('edit', $user)
+                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Edit</a>
+                                    @endcan
+                                    @can('delete', $user)
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+                                        </form>
+                                    @endcan
+                                    @if($user->id === Auth::user()->id)
+                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Edit</a>
+                                    @endif
+                                    @if($user->id === Auth::user()->id )
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete your user?')">Delete</button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

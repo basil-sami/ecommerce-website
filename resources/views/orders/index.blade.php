@@ -1,5 +1,3 @@
-<!-- resources/views/orders/index.blade.php -->
-<!-- resources/views/orders/index.blade.php -->
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -31,12 +29,16 @@
                                     <td class="border px-4 py-2">{{ $order->total }}</td>
                                     <td class="border px-4 py-2">
                                         <a href="{{ route('orders.show', $order->id) }}" class="btn btn-info">View</a>
-                                        <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-warning">Edit</a>
-                                        <form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                        </form>
+                                        @can('update', $order)
+                                            <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-warning">Edit</a>
+                                        @endcan
+                                        @can('delete', $order)
+                                            <form action="{{ route('orders.destroy', $order->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

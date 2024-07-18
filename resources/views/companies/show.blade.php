@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Company Details') }}
+            {{ __('Admin - Company Details') }}
         </h2>
     </x-slot>
 
@@ -51,7 +51,9 @@
                     @endif
 
                     <div class="mt-4">
-                        <a href="{{ route('companies.edit', $company->id) }}" class="btn btn-warning">Edit</a>
+                        @can('update', $company)
+                            <a href="{{ route('companies.edit', $company->id) }}" class="btn btn-warning">Edit</a>
+                        @endcan
                         <a href="{{ route('companies.index') }}" class="btn btn-secondary">Back to List</a>
                     </div>
                 </div>

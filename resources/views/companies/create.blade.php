@@ -36,7 +36,11 @@
                             <label for="description" class="form-label">Description:</label>
                             <textarea name="description" id="description" class="form-control"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Add Company</button>
+                        @can('create', App\Models\Company::class)
+                            <button type="submit" class="btn btn-primary">Add Company</button>
+                        @else
+                            <p>You do not have permission to add a new company.</p>
+                        @endcan
                     </form>
                 </div>
             </div>

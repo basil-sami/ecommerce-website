@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<!-- resources/views/admins/show.blade.php -->
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -17,7 +15,9 @@
                     <p><strong>Username:</strong> {{ $admin->username }}</p>
                     <p><strong>Email:</strong> {{ $admin->email }}</p>
                     <div class="mt-4">
-                        <a href="{{ route('admins.edit', $admin->id) }}" class="btn btn-warning">Edit</a>
+                        @can('update', $admin)
+                            <a href="{{ route('admins.edit', $admin->id) }}" class="btn btn-warning">Edit</a>
+                        @endcan
                         <a href="{{ route('admins.index') }}" class="btn btn-secondary">Back to List</a>
                     </div>
                 </div>
@@ -25,4 +25,3 @@
         </div>
     </div>
 </x-app-layout>
-@endsection

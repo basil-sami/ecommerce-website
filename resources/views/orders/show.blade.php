@@ -15,9 +15,11 @@
                     <p><strong>Status:</strong> {{ $order->status }}</p>
                     <p><strong>Total:</strong> {{ $order->total }}</p>
                     <div class="mt-4">
-                        <a href="{{ route('orders.edit', $order->id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
-                            Edit
-                        </a>
+                        @can('update', $order)
+                            <a href="{{ route('orders.edit', $order->id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                                Edit
+                            </a>
+                        @endcan
                         <a href="{{ route('orders.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                             Back to List
                         </a>
