@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Define base directory
+BASE_DIR="resources/views"
+
+# Function to create views for a given resource
+create_views() {
+    RESOURCE=$1
+    mkdir -p "$BASE_DIR/$RESOURCE"
+    touch "$BASE_DIR/$RESOURCE/index.blade.php"
+    touch "$BASE_DIR/$RESOURCE/create.blade.php"
+    touch "$BASE_DIR/$RESOURCE/edit.blade.php"
+    touch "$BASE_DIR/$RESOURCE/show.blade.php"
+}
+
+# Create views for each resource
+create_views "products"
+create_views "companies"
+create_views "orders"
+create_views "order-items"
+create_views "admins"
+
+echo "View files created successfully!"
